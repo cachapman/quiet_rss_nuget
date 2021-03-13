@@ -2,10 +2,7 @@ using System;
 
 namespace QuietRssNuget
 {
-    //I have a feeling we may need to make this more generic
-    //But, unsure of market demand for expansion, since the ask is straight forward.
-    //TODO: Ask on longevity of this code
-    public class RssSummary
+     public class RssSummary
     {
         public RssSummary(string company, string rssUri, DateTimeOffset lastUpdate, double quietStreak, string title)
         {
