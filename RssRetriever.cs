@@ -15,12 +15,9 @@ namespace QuietRssNuget
             if(companyFeeds == null) return ret;
 
 
-            foreach (Tuple<string, string> entry in companyFeeds) { 
-                
-                //open the feed
-                XmlReader feed = XmlReader.Create(entry.Item2);
-                var rssFeed = SyndicationFeed.Load(feed);
-                feed.Close();
+            foreach (Tuple<string, string> entry in companyFeeds) {
+
+                SyndicationFeed rssFeed = GetFeedFromUri(entry.Item2);
 
                 if (rssFeed != null)
                 {
@@ -30,6 +27,14 @@ namespace QuietRssNuget
                 }
             }
             return ret;
+        }
+
+        private static SyndicationFeed GetFeedFromUri(string uri)
+        {
+            XmlReader feed = XmlReader.Create(uri);
+            var rssFeed = SyndicationFeed.Load(feed);
+            feed.Close();
+            return rssFeed;
         }
 
         private static DateTimeOffset LastUpdateTime(SyndicationFeed rssFeed)
