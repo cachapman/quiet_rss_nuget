@@ -30,7 +30,7 @@ namespace QuietRssNugetTests
             //arrange
             var dictionary = new Dictionary<string, string>();
             dictionary.Add("Company A", "https://rss.art19.com/apology-line");
-            dictionary.Add("Comapny B", "https://feeds.simplecast.com/54nAGcIl");
+            dictionary.Add("Company B", "https://feeds.simplecast.com/54nAGcIl");
 
             //act
             var ret = RssRetriever.GetQuietFeeds(dictionary);
@@ -45,7 +45,7 @@ namespace QuietRssNugetTests
             //arrange
             var dictionary = new Dictionary<string, string>();
             dictionary.Add("Company A", "https://rss.art19.com/apology-line");
-            dictionary.Add("Comapny A", "https://feeds.simplecast.com/54nAGcIl");
+            dictionary.Add("Company A", "https://feeds.simplecast.com/54nAGcIl");
 
             //act
             var ret = RssRetriever.GetQuietFeeds(dictionary);
