@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using QuietRssNuget;
+using System;
 
 namespace QuietRssNugetTests
 {
@@ -8,16 +9,23 @@ namespace QuietRssNugetTests
     public class QuietNugetTests
     {
         public object QuietRssNuget { get; private set; }
+        
+        [TestInitialize]
+        public void QuietNugetInit()
+        {
+            TestRssFeedHelper.ClearFiles();
+        }
 
         [TestMethod]
         public void PositiveCanOpenKnownGoodRssFeed()
         {
             //arrange
             var dictionary = new Dictionary<string, string>();
-            dictionary.Add("The Apology Line", "https://rss.art19.com/apology-line");
+            
+            dictionary.Add("Company 1", TestRssFeedHelper.MakeNewTestRssFeedWithDate(DateTime.UtcNow));
 
             //act
-            var ret = RssRetriever.GetQuietFeeds(dictionary);
+            var ret = RssRetriever.GetQuietFeeds(dictionary, 0);
 
             //assert
             Assert.IsTrue(ret.Count == 1);
@@ -29,11 +37,11 @@ namespace QuietRssNugetTests
         {
             //arrange
             var dictionary = new Dictionary<string, string>();
-            dictionary.Add("Company A", "https://rss.art19.com/apology-line");
-            dictionary.Add("Company B", "https://feeds.simplecast.com/54nAGcIl");
+            dictionary.Add("Company A", TestRssFeedHelper.MakeNewTestRssFeedWithDate(DateTime.UtcNow));
+            dictionary.Add("Company B", TestRssFeedHelper.MakeNewTestRssFeedWithDate(DateTime.UtcNow));
 
             //act
-            var ret = RssRetriever.GetQuietFeeds(dictionary);
+            var ret = RssRetriever.GetQuietFeeds(dictionary, 0);
 
             //assert
             Assert.IsTrue(ret.Count == 2);
@@ -44,11 +52,11 @@ namespace QuietRssNugetTests
         {
             //arrange
             var dictionary = new Dictionary<string, string>();
-            dictionary.Add("Company A", "https://rss.art19.com/apology-line");
-            dictionary.Add("Company A", "https://feeds.simplecast.com/54nAGcIl");
+            dictionary.Add("Company A", TestRssFeedHelper.MakeNewTestRssFeedWithDate(DateTime.UtcNow));
+            dictionary.Add("Company A", TestRssFeedHelper.MakeNewTestRssFeedWithDate(DateTime.UtcNow));
 
             //act
-            var ret = RssRetriever.GetQuietFeeds(dictionary);
+            var ret = RssRetriever.GetQuietFeeds(dictionary, 0);
 
             //assert
             Assert.IsTrue(ret.Count == 2);

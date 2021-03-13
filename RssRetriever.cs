@@ -12,8 +12,8 @@ namespace QuietRssNuget
             var ret = new HashSet<RssSummary>();
             var quietStreakStartDate = DateTime.UtcNow.AddDays((double)quietStreak * -1);
 
-
             if(companyFeeds == null) return ret;
+
 
             foreach (KeyValuePair<string, string> entry in companyFeeds) { 
                 
@@ -36,6 +36,8 @@ namespace QuietRssNuget
         {
             //Short research has proven this field is not always updated, so we need to double check over the published items
             var lastUpdatedTime = rssFeed.LastUpdatedTime;
+            
+            if (rssFeed.Items.Count() == 0) return lastUpdatedTime;
 
             var maxPublishDate = rssFeed.Items.Select(x => x.PublishDate).Max();
 
