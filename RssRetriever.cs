@@ -25,10 +25,15 @@ namespace QuietRssNuget
                 {
                     DateTimeOffset lastUpdate = LastUpdateTime(rssFeed);
                     if (lastUpdate.DateTime.Date <= quietStreakStartDate.Date)
-                        ret.Add(new RssSummary(entry.Item1, entry.Item2, lastUpdate, 0 /*TODO FIX*/, rssFeed.Title.Text));
+                        ret.Add(new RssSummary(entry.Item1, entry.Item2, lastUpdate,  CalculateQuietStreak(lastUpdate.DateTime.Date), rssFeed.Title.Text));
                 }
             }
             return ret;
+        }
+
+        private static double CalculateQuietStreak(DateTime lastUpdate)
+        {
+            return (DateTime.UtcNow.Date - lastUpdate).TotalDays;
         }
 
         private static SyndicationFeed GetFeedFromUri(string uri)
