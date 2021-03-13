@@ -6,7 +6,7 @@ using System;
 namespace QuietRssNugetTests
 {
     [TestClass]
-    public class QuietNugetTests
+    public class QuietNugetPositiveTests
     {
         public object QuietRssNuget { get; private set; }
         
@@ -30,7 +30,6 @@ namespace QuietRssNugetTests
             //assert
             Assert.IsTrue(ret.Count == 1);
         }
-
 
         [TestMethod]
         public void PositiveCanOpenMultipleKnownGoodRssFeeds()
