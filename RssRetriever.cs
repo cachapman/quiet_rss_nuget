@@ -34,7 +34,12 @@ namespace QuietRssNuget
 
         private static DateTimeOffset LastUpdateTime(SyndicationFeed rssFeed)
         {
-            return new DateTimeOffset();
+            //Short research has proven this field is not always updated, so we need to double check over the published items
+            var lastUpdatedTime = rssFeed.LastUpdatedTime;
+
+            var maxPublishDate = rssFeed.Items.Select(x => x.PublishDate).Max();
+
+            return lastUpdatedTime > maxPublishDate ? lastUpdatedTime : maxPublishDate;
         }
     }
 }
