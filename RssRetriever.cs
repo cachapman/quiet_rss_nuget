@@ -5,10 +5,10 @@ using System.Xml;
 
 namespace QuietRssNuget
 {
-    public class RssRetriever
+    public static class RssRetriever
     {
-        public HashSet<RssSummary> GetQuietFeeds(Dictionary<string, string> companyFeeds, int? quietStreak = 5, int? returnLimit = int.MaxValue){
-            var ret = new HashSet<RssSummary>((int)returnLimit);
+        public static HashSet<RssSummary> GetQuietFeeds(Dictionary<string, string> companyFeeds, int? quietStreak = 5){
+            var ret = new HashSet<RssSummary>();
             if(companyFeeds == null) return ret;
 
             foreach (KeyValuePair<string, string> entry in companyFeeds) { 
@@ -18,10 +18,21 @@ namespace QuietRssNuget
                 var rssFeed = SyndicationFeed.Load(feed);
                 feed.Close();
 
+                if (rssFeed != null)
+                {
+                    ret.Add(new RssSummary
+                    {
+                        Company = entry.Key,
+                        RssUri = entry.Value,
+                        LastPost = DateTime.Now, //TODO FIX
+                        QuietStreak = 0, //TODO FIX
+                        Title = rssFeed.Title.Text
+                    });
+                }
                 //get latest date
                 //compare to quiet streak
                 //if matches, add to list
-                //if at the return limit, break and return
+              
             }
 
             return ret;
