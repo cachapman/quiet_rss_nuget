@@ -14,7 +14,6 @@ namespace QuietRssNuget
 
             if(companyFeeds == null) return ret;
 
-
             foreach (Tuple<string, string> entry in companyFeeds) {
 
                 SyndicationFeed rssFeed = GetFeedFromUri(entry.Item2);
